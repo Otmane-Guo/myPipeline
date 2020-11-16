@@ -1,15 +1,23 @@
 pipeline {
     agent any
+    options {
+        skipStagesAfterUnstable()
+    }
     stages {
-        stage('Test') {
+        stage('Build') {
             steps {
-                sh './gradlew check'
+                echo 'Building'
             }
         }
-    }
-    post {
-        always {
-            junit 'build/reports/**/*.xml'
+        stage('Test') {
+            steps {
+                echo 'Testing'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying'
+            }
         }
     }
 }
